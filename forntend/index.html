@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MIND - E-Learning</title>
+  <style>
+    /* General Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #eee;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #181818;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #00bfff;
+    }
+
+    .menu {
+      list-style: none;
+    }
+
+    .menu li {
+      margin: 15px 0;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .menu li:hover {
+      color: #00bfff;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #1e1e1e;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress {
+      height: 100%;
+      background: #00bfff;
+      width: 30%; /* Example progress */
+    }
+
+    .stats {
+      display: flex;
+      gap: 15px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .start-btn {
+      margin-top: 15px;
+      padding: 8px 15px;
+      background: #00bfff;
+      border: none;
+      border-radius: 5px;
+      color: #111;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .start-btn:hover {
+      background: #0099cc;
+    }
+
+    /* Right Sidebar */
+    .rightbar {
+      width: 280px;
+      background: #181818;
+      padding: 20px;
+    }
+
+    .right-card {
+      background: #222;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .right-card h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">MIND</div>
+    <ul class="menu">
+      <li>Dashboard</li>
+      <li>Curriculum</li>
+      <li>Progress</li>
+      <li>Timeline</li>
+      <li>Leaderboard</li>
+      <li>Task Review</li>
+      <li>Project Details</li>
+      <li>Wiki</li>
+      <li>Community Forum</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="section-title">Your Active Courses</div>
+
+    <!-- Example Course Card -->
+    <div class="card">
+      <div class="card-header">100 Days of DevOps</div>
+      <div class="progress-bar"><div class="progress"></div></div>
+      <div class="stats">
+        <div>0 Completed</div>
+        <div>12 Pending</div>
+        <div>88 Locked</div>
+      </div>
+      <button class="start-btn">Start</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Ansible Basics</div>
+      <div class="progress-bar"><div class="progress" style="width: 50%;"></div></div>
+      <div class="stats">
+        <div>2 Completed</div>
+        <div>1 Pending</div>
+      </div>
+      <button class="start-btn">Start</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Git Fundamentals</div>
+      <div class="progress-bar"><div class="progress" style="width: 10%;"></div></div>
+      <div class="stats">
+        <div>0 Completed</div>
+        <div>1 Pending</div>
+      </div>
+      <button class="start-btn">Start</button>
+    </div>
+  </div>
+
+  <!-- Right Sidebar -->
+  <div class="rightbar">
+    <div class="right-card">
+      <h3>Recommended</h3>
+      <p>Git for Beginners - Learn Git step by step with labs</p>
+      <button class="start-btn">Go to Course</button>
+    </div>
+
+    <div class="right-card">
+      <h3>Streak</h3>
+      <p>Complete 5 tasks without redo!</p>
+    </div>
+
+    <div class="right-card">
+      <h3>Review Tasks</h3>
+      <ul>
+        <li>Linux Basics (6)</li>
+        <li>Ansible Inventory (2)</li>
+        <li>Jenkins Workspaces (0)</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+
