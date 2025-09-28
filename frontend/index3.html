@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIND - E-Learning</title>
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f1222;
+      color: #e4e4e4;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 230px;
+      background: #16182b;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 15px;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #d48aff;
+      margin-bottom: 30px;
+    }
+    .menu {
+      list-style: none;
+    }
+    .menu li {
+      margin: 15px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+    .menu li:hover {
+      color: #fff;
+    }
+    .sidebar-bottom {
+      font-size: 14px;
+      color: #aaa;
+    }
+    .sidebar-bottom .user {
+      margin-top: 10px;
+    }
+
+    /* TOP NAVBAR */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 230px;
+      right: 0;
+      height: 50px;
+      background: #1b1e35;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 14px;
+    }
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-bar {
+      width: 150px;
+      height: 8px;
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress {
+      width: 40%; /* Example */
+      height: 100%;
+      background: #6f9dff;
+    }
+
+    /* MAIN */
+    .main {
+      margin-left: 230px;
+      margin-top: 60px;
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .content {
+      flex: 2;
+    }
+    .section-title {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .card {
+      background: #1a1d33;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .task-progress {
+      height: 6px;
+      background: #2a2d47;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .task-progress .fill {
+      height: 100%;
+      background: #6f9dff;
+      width: 25%;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .start-btn {
+      background: #9f8aff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .start-btn:hover {
+      background: #8b73ff;
+    }
+
+    /* RIGHTBAR */
+    .rightbar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .right-card {
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 14px;
+    }
+    .gradient-card {
+      background: linear-gradient(135deg, #3949ab, #6f9dff);
+      color: white;
+    }
+    .orange-card {
+      background: #ffcc80;
+      color: #111;
+    }
+    .green-card {
+      background: #a5d6a7;
+      color: #111;
+    }
+    .review-item {
+      background: rgba(0,0,0,0.2);
+      padding: 6px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div>
+      <div class="logo">MIND</div>
+      <ul class="menu">
+        <li>📊 Dashboard</li>
+        <li>📚 Curriculum</li>
+        <li>📈 Progress</li>
+        <li>🗓 Timeline</li>
+        <li>🏆 Leaderboard</li>
+        <li>✅ Task Review</li>
+        <li>📂 Project Details</li>
+        <li>📖 Wiki</li>
+        <li>💬 Community Forum</li>
+      </ul>
+    </div>
+    <div class="sidebar-bottom">
+      <div>🎁 Refer a friend</div>
+      <div class="user">👤 hossam rashed</div>
+    </div>
+  </div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>System Administrator</div>
+    <div class="progress-container">
+      Learning Points: 2300/25000
+      <div class="progress-bar"><div class="progress"></div></div>
+    </div>
+    <div>💰 1143 | 🏅 1 | 🔔</div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="content">
+      <div class="section-title">Your Active Courses</div>
+
+      <div class="card">
+        <div class="card-header">
+          <span>100 Days of DevOps</span>
+          <button class="start-btn">▶ Start</button>
+        </div>
+        <div>Progress: 0/100 Tasks</div>
+        <div class="task-progress"><div class="fill" style="width:0%"></div></div>
+        <div class="stats">
+          <span>0 Completed</span>
+          <span>12 Pending</span>
+          <span>12 Unlocked</span>
+          <span>88 Locked</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span>Ansible (Level 2)</span>
+          <button class="start-btn">▶ Start</button>
+        </div>
+        <div>Progress: 2/8 Tasks</div>
+        <div class="task-progress"><div class="fill" style="width:25%"></div></div>
+        <div class="stats">
+          <span>2 Completed</span>
+          <span>1 Pending</span>
+          <span>0 Unlocked</span>
+          <span>0 Locked</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span>Git (Level 1)</span>
+          <button class="start-btn">▶ Start</button>
+        </div>
+        <div>Progress: 0/5 Tasks</div>
+        <div class="task-progress"><div class="fill" style="width:10%"></div></div>
+        <div class="stats">
+          <span>0 Completed</span>
+          <span>1 Pending</span>
+          <span>0 Unlocked</span>
+          <span>0 Locked</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHTBAR -->
+    <div class="rightbar">
+      <div class="right-card gradient-card">
+        <h3>Git for Beginners</h3>
+        <p>Learn Git with simple visualizations and challenges.</p>
+        <button class="start-btn">Go to course</button>
+      </div>
+
+      <div class="right-card orange-card">
+        <h3>🔥 Streak</h3>
+        <p>Complete 5 tasks without redo</p>
+      </div>
+
+      <div class="right-card green-card">
+        <h3>Review Tasks</h3>
+        <div class="review-item">Linux Banner (0)</div>
+        <div class="review-item">Ansible Inventory (2)</div>
+        <div class="review-item">Jenkins Workspaces (0)</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
