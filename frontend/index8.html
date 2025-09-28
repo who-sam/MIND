@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevCode Academy - Master DevOps & Backend Development</title>
+    <style>
+        /* Remove any potential pseudo-elements from all elements */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .logo::before, .logo::after {
+            display: none !important;
+            content: none !important;
+        }
+
+        :root {
+            /* Darker Catppuccin Mocha Colors - Enhanced */
+            --base: #0d0d14;
+            --mantle: #11111b;
+            --crust: #181825;
+            --surface0: #1e1e2e;
+            --surface1: #313244;
+            --surface2: #45475a;
+            --overlay0: #585b70;
+            --overlay1: #6c7086;
+            --overlay2: #7f849c;
+            --subtext0: #9399b2;
+            --subtext1: #bac2de;
+            --text: #cdd6f4;
+            --lavender: #b4befe;
+            --blue: #89b4fa;
+            --sapphire: #74c7ec;
+            --sky: #89dceb;
+            --teal: #94e2d5;
+            --green: #a6e3a1;
+            --yellow: #f9e2af;
+            --peach: #fab387;
+            --maroon: #eba0ac;
+            --red: #f38ba8;
+            --mauve: #cba6f7;
+            --pink: #f5c2e7;
+            --flamingo: #f2cdcd;
+            --rosewater: #f5e0dc;
+        }
+
+        body {
+            background-color: var(--base);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Import Nerd Fonts CSS */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+        /* Custom Nerd Font styles for icons */
+        .nf {
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
+            font-weight: 900;
+        }
+
+        /* Top Navigation */
+        .navbar {
+            background-color: var(--crust);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid var(--surface0);
+        }
+
+        .nav-container {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            line-height: 1;
+        }
+
+        .logo::before {
+            content: '\f121';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--blue);
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--surface0);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        /* Vertical Sidebar Menu */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--base);
+            border-right: 1px solid var(--surface0);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            overflow-y: auto;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0 0 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 0;
+        }
+
+        .sidebar-section-title {
+            padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--overlay0);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        .sidebar-section:first-child .sidebar-section-title {
+            margin-top: 0;
+            padding-top: 0.75rem;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-links li {
+            margin: 0;
+        }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.875rem 1.5rem;
+            color: var(--subtext1);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .sidebar-links a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--blue), transparent);
+            transition: width 0.2s ease;
+        }
+
+        .sidebar-links a:hover {
+            background-color: var(--surface1);
+            color: var(--text);
+            padding-left: 1.75rem;
+        }
+
+        .sidebar-links a:hover::before {
+            width: 3px;
+        }
+
+        .sidebar-links a.active {
+            background-color: var(--surface1);
+            color: var(--blue);
+            border-left-color: var(--blue);
+            font-weight: 600;
+        }
+
+        .sidebar-links a.active::before {
+            width: 3px;
+        }
+
+        .sidebar-icon {
+            margin-right: 1rem;
+            font-size: 1rem;
+            width: 16px;
+            text-align: center;
+            opacity: 0.8;
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands';
+            font-weight: 900;
+        }
+
+        /* Improved scrollbar styling */
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--crust);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--surface1);
+            border-radius: 2px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--surface2);
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Content shift when sidebar is open */
+        .content {
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content.shifted {
+            margin-left: 300px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--blue), var(--mauve));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--subtext1);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--overlay1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--blue), var(--sapphire));
+            color: var(--base);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(137, 180, 250, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(137, 180, 250, 0.4);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--surface0), var(--surface1));
+            padding: 3rem 0;
+            border-top: 1px solid var(--surface0);
+            border-bottom: 1px solid var(--surface0);
+        }
+
+        .stats-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--subtext1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Interactive Demo Section */
+        .demo {
+            padding: 6rem 0;
+            background-color: var(--base);
+        }
+
+        .demo-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .demo h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .demo p {
+            font-size: 1.1rem;
+            color: var(--subtext1);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .code-preview {
+            background-color: var(--crust);
+            border: 1px solid var(--surface1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--surface1);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background-color: var(--red); }
+        .code-dot.yellow { background-color: var(--yellow); }
+        .code-dot.green { background-color: var(--green); }
+
+        .code-title {
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            color: var(--subtext1);
+        }
+
+        .code-content {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .code-line {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .keyword { color: var(--mauve); }
+        .string { color: var(--green); }
+        .comment { color: var(--overlay1); font-style: italic; }
+        .function { color: var(--blue); }
+
+        /* Social Proof Section */
+        .social-proof {
+            padding: 4rem 0;
+            background-color: var(--surface0);
+        }
+
+        .social-proof-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .social-proof h2 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .testimonial {
+            background-color: var(--crust);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--surface1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--subtext1);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--mauve));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--base);
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .author-info h4 {
+            color: var(--text);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .author-info p {
+            color: var(--overlay1);
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        .github-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .github-stat {
+            display: flex;
+            align-items: center;
+            background-color: var(--crust);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--surface1);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .github-stat:hover {
+            background-color: var(--surface0);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .github-icon {
+            margin-right: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: var(--crust);
+            text-align: center;
+            border-top: 1px solid var(--surface1);
+        }
+
+        .cta-section-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--blue), var(--mauve));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--subtext1);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--blue), var(--sapphire));
+            color: var(--base);
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(137, 180, 250, 0.3);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(137, 180, 250, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--text);
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid var(--surface1);
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            background-color: var(--surface1);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--base);
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--surface1);
+        }
+        .features {
+            padding: 4rem 0;
+            background-color: var(--mantle);
+        }
+
+        .features-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--crust);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--surface1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--blue);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--blue);
+        }
+
+        .feature-card p {
+            color: var(--subtext1);
+        }
+
+        /* Learning Paths Section */
+        .paths {
+            padding: 6rem 0;
+        }
+
+        .paths-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .paths h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .path-card {
+            background: var(--crust);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--surface1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--mauve));
+        }
+
+        .path-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .path-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .path-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--blue);
+        }
+
+        .path-card h3 {
+            font-size: 1.8rem;
+            color: var(--text);
+        }
+
+        .path-description {
+            color: var(--subtext1);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .path-topics {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .path-topics li {
+            padding: 0.5rem 0;
+            color: var(--subtext0);
+            border-bottom: 1px solid var(--surface1);
+        }
+
+        .path-topics li:last-child {
+            border-bottom: none;
+        }
+
+        .path-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--green), var(--teal));
+            color: var(--base);
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .path-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--crust);
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--surface0);
+        }
+
+        .footer-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: var(--subtext1);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--surface0);
+            padding-top: 2rem;
+            color: var(--overlay1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .paths-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+
+            .github-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .content.shifted {
+                margin-left: 0;
+            }
+
+            .nav-container,
+            .hero-container,
+            .features-container,
+            .paths-container,
+            .footer-container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-container,
+            .hero-container,
+            .features-container,
+            .paths-container,
+            .footer-container {
+                padding: 0 3rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .nav-container,
+            .hero-container,
+            .features-container,
+            .paths-container,
+            .footer-container {
+                padding: 0 4rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+
+            .paths-grid {
+                grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="sidebar-close" id="sidebarClose">×</button>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Main</div>
+                <ul class="sidebar-links">
+                    <li><a href="#home" class="active"><i class="sidebar-icon fas fa-home"></i>Home</a></li>
+                    <li><a href="#paths"><i class="sidebar-icon fas fa-route"></i>Learning Paths</a></li>
+                    <li><a href="#about"><i class="sidebar-icon fas fa-info-circle"></i>About</a></li>
+                    <li><a href="#community"><i class="sidebar-icon fas fa-users"></i>Community</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">DevOps Track</div>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="sidebar-icon fab fa-docker"></i>Docker Basics</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-dharmachakra"></i>Kubernetes</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-cogs"></i>CI/CD Pipelines</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-cloud"></i>Cloud Platforms</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-chart-line"></i>Monitoring</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Go Backend Track</div>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="sidebar-icon fab fa-golang"></i>Go Fundamentals</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-globe"></i>HTTP & APIs</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-database"></i>Database Integration</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-sync-alt"></i>Concurrency</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-cubes"></i>Microservices</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Resources</div>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="sidebar-icon fas fa-book"></i>Documentation</a></li>
+                    <li><a href="#"><i class="sidebar-icon fab fa-discord"></i>Discord</a></li>
+                    <li><a href="#"><i class="sidebar-icon fab fa-github"></i>GitHub</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-blog"></i>Blog</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <div class="content" id="content">
+        <!-- Top Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <a href="#" class="logo">kernel</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#paths">Learning Paths</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container fade-in">
+            <h1>Master Modern Development</h1>
+            <p>Free, open-source learning paths for DevOps and Backend development with Go. Build the skills that matter in today's tech landscape.</p>
+            <a href="#paths" class="cta-button">Start Learning Free</a>
+        </div>
+    </section>
+
+            <!-- Social Proof Section -->
+        <section class="social-proof">
+            <div class="social-proof-container">
+                <h2>Powered by the Open Source Community</h2>
+                
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"I love that I can see exactly how each lesson was created and even contribute my own examples. True community-driven learning!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AK</div>
+                            <div class="author-info">
+                                <h4>Alex Kim</h4>
+                                <p>Open Source Contributor</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The transparency is incredible. Every resource is on GitHub, every decision is discussed openly. This is how education should be."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MR</div>
+                            <div class="author-info">
+                                <h4>Maria Rodriguez</h4>
+                                <p>DevOps Engineer & Maintainer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Started as a learner, now I'm a contributor. The community welcomes everyone and values every contribution, big or small."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JS</div>
+                            <div class="author-info">
+                                <h4>James Smith</h4>
+                                <p>Community Member & Contributor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="github-stats">
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-star"></i></span>
+                        <span>1,200+ Stars</span>
+                    </a>
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-code-branch"></i></span>
+                        <span>300+ Forks</span>
+                    </a>
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-code-merge"></i></span>
+                        <span>50+ Pull Requests</span>
+                    </a>
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-balance-scale"></i></span>
+                        <span>Open License</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <h2>Why Choose DevCode Academy?</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🚀</div>
+                    <h3>100% Free</h3>
+                    <p>All our content is completely free and open-source. No hidden fees, no premium tiers.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Industry-Focused</h3>
+                    <p>Learn skills that are in high demand: DevOps practices and Go backend development.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📈</div>
+                    <h3>Progressive Learning</h3>
+                    <p>Structured paths that take you from beginner to advanced, step by step.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Paths Section -->
+    <section class="paths" id="paths">
+        <div class="paths-container">
+            <h2>Choose Your Learning Path</h2>
+            <div class="paths-grid">
+                <!-- DevOps Path -->
+                <div class="path-card fade-in">
+                    <div class="path-header">
+                        <div class="path-icon">⚙️</div>
+                        <h3>DevOps Engineering</h3>
+                    </div>
+                    <p class="path-description">Master the art of deployment, automation, and infrastructure management. Learn the tools and practices that keep modern applications running smoothly in production.</p>
+                    <ul class="path-topics">
+                        <li>🐳 Docker & Containerization (2 weeks)</li>
+                        <li>☸️ Kubernetes Orchestration (3 weeks)</li>
+                        <li>🔧 CI/CD Pipelines & GitOps (2 weeks)</li>
+                        <li>☁️ Cloud Platforms (AWS, GCP, Azure) (3 weeks)</li>
+                        <li>📊 Monitoring & Observability (2 weeks)</li>
+                        <li>🔒 Security & Best Practices (1 week)</li>
+                    </ul>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="color: var(--green); font-weight: 600;">13 weeks • 40+ hands-on labs • 8 real projects</span>
+                    </div>
+                    <a href="#" class="path-button">Start DevOps Journey</a>
+                </div>
+
+                <!-- Backend Go Path -->
+                <div class="path-card fade-in">
+                    <div class="path-header">
+                        <div class="path-icon">🐹</div>
+                        <h3>Backend with Go</h3>
+                    </div>
+                    <p class="path-description">Build robust, scalable backend systems with Go. From fundamentals to advanced patterns, master the language that powers modern cloud infrastructure.</p>
+                    <ul class="path-topics">
+                        <li>🎯 Go Fundamentals & Syntax (2 weeks)</li>
+                        <li>🌐 HTTP Servers & REST APIs (2 weeks)</li>
+                        <li>🗄️ Database Integration & ORM (2 weeks)</li>
+                        <li>🔄 Concurrency & Goroutines (2 weeks)</li>
+                        <li>🏗️ Microservices Architecture (3 weeks)</li>
+                        <li>🧪 Testing & Performance (1 week)</li>
+                    </ul>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="color: var(--green); font-weight: 600;">12 weeks • 35+ coding exercises • 6 full applications</span>
+                    </div>
+                    <a href="#" class="path-button">Start Go Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Open Source</h4>
+                    <a href="#">GitHub Repository</a>
+                    <a href="#">Contribute Guidelines</a>
+                    <a href="#">MIT License</a>
+                    <a href="#">Code of Conduct</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">Discord Server</a>
+                    <a href="#">Contributors</a>
+                    <a href="#">Discussions</a>
+                    <a href="#">Issue Tracker</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">Learning Paths</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Examples Repository</a>
+                    <a href="#">Blog</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 kernel. Open Source Education • Licensed under MIT • Built by developers, for developers.</p>
+            </div>
+        </div>
+            </footer>
+    </div>
+
+    <script>
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const content = document.getElementById('content');
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            
+            // Always push content on all screen sizes
+            content.classList.toggle('shifted');
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', toggleSidebar);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            // Keep the shifted state regardless of screen size
+            // Users can manually close if they want
+        });
+
+        // Sidebar navigation active state
+        const sidebarLinks = document.querySelectorAll('.sidebar-links a');
+        
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active class from all links
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Don't auto-close sidebar on any screen size
+                // Let users manually close it if they want
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.feature-card, .path-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add hover effects for cards
+        document.querySelectorAll('.path-card, .feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
