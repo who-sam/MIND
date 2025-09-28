@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DevCode Academy — Master DevOps & Backend Development</title>
+
+  <!-- Font Awesome (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous" />
+
+  <style>
+    /* =========================
+       Variables & base (mobile-first)
+       ========================= */
+    :root{
+      --base:#0d0d14;--mantle:#11111b;--crust:#181825;--surface0:#1e1e2e;
+      --surface1:#313244;--overlay0:#585b70;--overlay1:#6c7086;--text:#cdd6f4;
+      --subtext1:#bac2de;--blue:#89b4fa;--mauve:#cba6f7;--green:#a6e3a1;--red:#f38ba8;
+      --radius-lg:12px;--radius-md:8px;--container-pad:1rem;
+      --sidebar-width:300px;
+    }
+
+    html{box-sizing:border-box;scroll-behavior:smooth}
+    *,*::before,*::after{box-sizing:inherit}
+    body{margin:0;font-family:Inter, "Segoe UI", system-ui, -apple-system, "Roboto", sans-serif;background:var(--base);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+    /* =========================
+       Utility
+       ========================= */
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--container-pad)}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+
+    /* =========================
+       Navbar
+       ========================= */
+    .navbar{position:sticky;top:0;z-index:1000;background:var(--crust);border-bottom:1px solid var(--surface0);box-shadow:0 2px 12px rgba(0,0,0,.45)}
+    .nav-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 0}
+    .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;color:var(--blue);text-decoration:none}
+    .brand .logo-icon{font-size:1.2rem}
+    .nav-links{display:none;gap:1.5rem;align-items:center}
+    .nav-links a{color:var(--text);text-decoration:none}
+    .menu-toggle{
+      background:transparent;border:0;color:var(--text);font-size:1.25rem;padding:.5rem;border-radius:8px;cursor:pointer
+    }
+    .menu-toggle:focus{outline:2px solid var(--blue);outline-offset:2px}
+
+    /* =========================
+       Sidebar (off-canvas)
+       ========================= */
+    .sidebar{
+      position:fixed;top:0;left:0;height:100vh;width:var(--sidebar-width);transform:translateX(calc(-1 * var(--sidebar-width)));
+      background:var(--base);border-right:1px solid var(--surface0);z-index:1200;padding-top:1rem;overflow:auto;
+      transition:transform .28s cubic-bezier(.22,.9,.3,1);will-change:transform;box-shadow:4px 0 30px rgba(0,0,0,.6)
+    }
+    .sidebar.open{transform:translateX(0)}
+    .sidebar-close{position:absolute;right:8px;top:8px;background:transparent;border:0;color:var(--subtext1);font-size:1.25rem;padding:.25rem;cursor:pointer}
+    .sidebar-close:focus{outline:2px solid var(--blue);outline-offset:2px}
+    .sidebar-section-title{padding:1rem 1.25rem;font-size:.75rem;color:var(--overlay0);text-transform:uppercase;letter-spacing:1px}
+    .sidebar-links{list-style:none;padding:0;margin:0}
+    .sidebar-links a{
+      display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;color:var(--subtext1);text-decoration:none;border-left:3px solid transparent;font-weight:500
+    }
+    .sidebar-links a:hover{background:var(--surface1);color:var(--text);padding-left:1.5rem}
+    .sidebar-links a.active{background:var(--surface1);color:var(--blue);border-left-color:var(--blue);font-weight:600}
+
+    /* overlay */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);z-index:1100;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+    .overlay.active{opacity:1;visibility:visible}
+
+    /* =========================
+       Hero
+       ========================= */
+    .hero{padding:4.5rem 0;text-align:center}
+    .hero h1{font-size:2rem;margin:0 0 .5rem;background:linear-gradient(135deg,var(--blue),var(--mauve));-webkit-background-clip:text;color:transparent}
+    .hero p{color:var(--subtext1);max-width:720px;margin:.75rem auto 1.5rem}
+    .cta-button{display:inline-block;background:linear-gradient(135deg,var(--blue),#74c7ec);color:var(--base);padding:.9rem 1.6rem;border-radius:var(--radius-lg);font-weight:600;text-decoration:none;box-shadow:0 6px 22px rgba(137,180,250,.15)}
+
+    /* =========================
+       Stats / features / paths
+       ========================= */
+    .section{padding:3rem 0}
+    .features-grid,.paths-grid,.testimonials{display:grid;gap:1rem}
+    .features-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .paths-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+    .card{background:var(--crust);padding:1.25rem;border-radius:16px;border:1px solid var(--surface1);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+    .card h3{color:var(--blue);margin-top:0}
+    .path-topics{list-style:none;padding:0;margin:0;color:var(--subtext1)}
+    .author-avatar{width:40px;height:40px;border-radius:50%;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--mauve));color:var(--base);font-weight:700}
+
+    /* github stats */
+    .github-stats{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+    .github-stat{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .9rem;border-radius:8px;background:var(--crust);border:1px solid var(--surface1);text-decoration:none;color:var(--text)}
+
+    /* footer */
+    footer{padding:2.25rem 0;border-top:1px solid var(--surface0);background:var(--crust)}
+    .footer-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+    /* code preview (monospace) */
+    .code-preview{background:var(--crust);border:1px solid var(--surface1);padding:1rem;border-radius:12px;overflow:auto;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace}
+
+    /* intersection reveal (reduced-motion safe) */
+    @media (prefers-reduced-motion: no-preference){
+      .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .5s ease}
+      .reveal.is-visible{opacity:1;transform:none}
+    }
+
+    /* larger screens */
+    @media(min-width:768px){
+      .nav-links{display:flex}
+      .menu-toggle{display:none}
+      .hero h1{font-size:3rem}
+    }
+
+    @media(min-width:1200px){
+      :root{--container-pad:2rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- overlay -->
+  <div id="overlay" class="overlay" tabindex="-1" aria-hidden="true"></div>
+
+  <!-- sidebar -->
+  <aside id="sidebar" class="sidebar" aria-hidden="true" aria-labelledby="sidelabel">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 0.75rem 0.75rem 1rem">
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <span id="sidelabel" style="color:var(--blue);font-weight:700">kernel</span>
+      </div>
+      <button id="sidebarClose" class="sidebar-close" aria-label="Close menu">✕</button>
+    </div>
+
+    <nav class="container" aria-label="Main navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Main</div>
+        <ul class="sidebar-links">
+          <li><a href="#home" class="active"><i class="fa-fw fas fa-home" aria-hidden="true"></i> Home</a></li>
+          <li><a href="#paths"><i class="fa-fw fas fa-route" aria-hidden="true"></i> Learning Paths</a></li>
+          <li><a href="#about"><i class="fa-fw fas fa-info-circle" aria-hidden="true"></i> About</a></li>
+          <li><a href="#community"><i class="fa-fw fas fa-users" aria-hidden="true"></i> Community</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">DevOps Track</div>
+        <ul class="sidebar-links">
+          <li><a href="#"><i class="fa-fw fab fa-docker" aria-hidden="true"></i> Docker Basics</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-dharmachakra" aria-hidden="true"></i> Kubernetes</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-cogs" aria-hidden="true"></i> CI/CD Pipelines</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-cloud" aria-hidden="true"></i> Cloud Platforms</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-chart-line" aria-hidden="true"></i> Monitoring</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Go Backend Track</div>
+        <ul class="sidebar-links">
+          <li><a href="#"><i class="fa-fw fab fa-golang" aria-hidden="true"></i> Go Fundamentals</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-globe" aria-hidden="true"></i> HTTP & APIs</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-database" aria-hidden="true"></i> Database Integration</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-sync-alt" aria-hidden="true"></i> Concurrency</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-cubes" aria-hidden="true"></i> Microservices</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Resources</div>
+        <ul class="sidebar-links">
+          <li><a href="#"><i class="fa-fw fas fa-book" aria-hidden="true"></i> Documentation</a></li>
+          <li><a href="#"><i class="fa-fw fab fa-discord" aria-hidden="true"></i> Discord</a></li>
+          <li><a href="#"><i class="fa-fw fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+          <li><a href="#"><i class="fa-fw fas fa-blog" aria-hidden="true"></i> Blog</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- top nav + content -->
+  <header class="navbar">
+    <div class="container nav-row">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <button id="menuToggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <a class="brand" href="#">
+          <i class="logo-icon fas fa-code" aria-hidden="true"></i>
+          <span class="brand-text">kernel</span>
+        </a>
+      </div>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#paths">Learning Paths</a>
+        <a href="#about">About</a>
+        <a href="#community">Community</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container" tabindex="-1">
+    <!-- hero -->
+    <section id="home" class="hero section">
+      <h1>Master Modern Development</h1>
+      <p>Free, open-source learning paths for DevOps and Backend development with Go. Build the skills that matter in today's tech landscape.</p>
+      <a class="cta-button" href="#paths">Start Learning Free</a>
+    </section>
+
+    <!-- social proof -->
+    <section class="section">
+      <h2 style="text-align:center;margin-bottom:1rem">Powered by the Open Source Community</h2>
+
+      <div class="testimonials" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+        <div class="card">
+          <p style="font-style:italic;color:var(--subtext1)">"I love that I can see exactly how each lesson was created and even contribute my own examples."</p>
+          <div style="display:flex;align-items:center;gap:.75rem;margin-top:1rem">
+            <div class="author-avatar">AK</div>
+            <div>
+              <div style="font-weight:700">Alex Kim</div>
+              <div style="color:var(--overlay1);font-size:.9rem">Open Source Contributor</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <p style="font-style:italic;color:var(--subtext1)">"The transparency is incredible. Every resource is on GitHub, every decision is discussed openly."</p>
+          <div style="display:flex;align-items:center;gap:.75rem;margin-top:1rem">
+            <div class="author-avatar">MR</div>
+            <div>
+              <div style="font-weight:700">Maria Rodriguez</div>
+              <div style="color:var(--overlay1);font-size:.9rem">DevOps Engineer & Maintainer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <p style="font-style:italic;color:var(--subtext1)">"Started as a learner, now I'm a contributor. The community welcomes everyone."</p>
+          <div style="display:flex;align-items:center;gap:.75rem;margin-top:1rem">
+            <div class="author-avatar">JS</div>
+            <div>
+              <div style="font-weight:700">James Smith</div>
+              <div style="color:var(--overlay1);font-size:.9rem">Community Member & Contributor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="github-stats" style="margin-top:1rem;">
+        <a class="github-stat" href="#"><i class="fas fa-star" aria-hidden="true"></i> 1,200+ Stars</a>
+        <a class="github-stat" href="#"><i class="fas fa-code-branch" aria-hidden="true"></i> 300+ Forks</a>
+        <a class="github-stat" href="#"><i class="fas fa-code-merge" aria-hidden="true"></i> 50+ PRs</a>
+        <a class="github-stat" href="#"><i class="fas fa-balance-scale" aria-hidden="true"></i> Open License</a>
+      </div>
+    </section>
+
+    <!-- features -->
+    <section class="section">
+      <h2 style="text-align:center;margin-bottom:1rem">Why Choose DevCode Academy?</h2>
+      <div class="features-grid">
+        <div class="card">
+          <div style="font-size:1.6rem;margin-bottom:.5rem">🚀</div>
+          <h3>100% Free</h3>
+          <p style="color:var(--subtext1)">All our content is completely free and open-source. No hidden fees, no premium tiers.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:1.6rem;margin-bottom:.5rem">🎯</div>
+          <h3>Industry-Focused</h3>
+          <p style="color:var(--subtext1)">Learn skills that are in high demand: DevOps practices and Go backend development.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:1.6rem;margin-bottom:.5rem">📈</div>
+          <h3>Progressive Learning</h3>
+          <p style="color:var(--subtext1)">Structured paths that take you from beginner to advanced, step by step.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- learning paths -->
+    <section id="paths" class="section">
+      <h2 style="text-align:center;margin-bottom:1rem">Choose Your Learning Path</h2>
+      <div class="paths-grid">
+        <article class="card" aria-labelledby="devops-title">
+          <div style="display:flex;align-items:center;gap:.75rem">
+            <div style="font-size:1.6rem">⚙️</div>
+            <h3 id="devops-title">DevOps Engineering</h3>
+          </div>
+          <p style="color:var(--subtext1)">Master deployment, automation, and infra management. Hands-on labs and projects.</p>
+          <ul class="path-topics" style="margin-top:.75rem">
+            <li>🐳 Docker & Containerization (2 weeks)</li>
+            <li>☸️ Kubernetes Orchestration (3 weeks)</li>
+            <li>🔧 CI/CD Pipelines & GitOps (2 weeks)</li>
+            <li>☁️ Cloud Platforms (3 weeks)</li>
+            <li>📊 Monitoring & Observability (2 weeks)</li>
+            <li>🔒 Security & Best Practices (1 week)</li>
+          </ul>
+          <div style="margin-top:1rem;color:var(--green);font-weight:600">13 weeks • 40+ labs • 8 projects</div>
+          <div style="margin-top:1rem"><a class="cta-button" href="#">Start DevOps Journey</a></div>
+        </article>
+
+        <article class="card" aria-labelledby="go-title">
+          <div style="display:flex;align-items:center;gap:.75rem">
+            <div style="font-size:1.6rem">🐹</div>
+            <h3 id="go-title">Backend with Go</h3>
+          </div>
+          <p style="color:var(--subtext1)">Build robust, scalable backend systems with Go from fundamentals to advanced patterns.</p>
+          <ul class="path-topics" style="margin-top:.75rem">
+            <li>🎯 Go Fundamentals & Syntax (2 weeks)</li>
+            <li>🌐 HTTP Servers & REST APIs (2 weeks)</li>
+            <li>🗄️ Database Integration & ORM (2 weeks)</li>
+            <li>🔄 Concurrency & Goroutines (2 weeks)</li>
+            <li>🏗️ Microservices Architecture (3 weeks)</li>
+            <li>🧪 Testing & Performance (1 week)</li>
+          </ul>
+          <div style="margin-top:1rem;color:var(--green);font-weight:600">12 weeks • 35+ exercises • 6 apps</div>
+          <div style="margin-top:1rem"><a class="cta-button" href="#">Start Go Journey</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <div class="container footer-grid">
+        <div>
+          <h4 style="color:var(--blue)">Open Source</h4>
+          <a href="#">GitHub Repository</a><br/>
+          <a href="#">Contribute Guidelines</a><br/>
+          <a href="#">MIT License</a><br/>
+          <a href="#">Code of Conduct</a>
+        </div>
+
+        <div>
+          <h4 style="color:var(--blue)">Community</h4>
+          <a href="#">Discord Server</a><br/>
+          <a href="#">Contributors</a><br/>
+          <a href="#">Discussions</a><br/>
+          <a href="#">Issue Tracker</a>
+        </div>
+
+        <div>
+          <h4 style="color:var(--blue)">Resources</h4>
+          <a href="#">Learning Paths</a><br/>
+          <a href="#">Documentation</a><br/>
+          <a href="#">Examples Repository</a><br/>
+          <a href="#">Blog</a>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:1rem;color:var(--overlay1)">&copy; 2025 kernel. Open Source Education • MIT</div>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebarClose = document.getElementById('sidebarClose');
+      const focusableSelector = 'a,button,[tabindex]:not([tabindex="-1"])';
+      let lastFocusedEl = null;
+
+      function openSidebar(){
+        lastFocusedEl = document.activeElement;
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
+        sidebar.setAttribute('aria-hidden','false');
+        menuToggle.setAttribute('aria-expanded','true');
+        sidebarClose.focus();
+        document.body.style.overflow = 'hidden'; // avoid background scroll when sidebar open
+      }
+
+      function closeSidebar(){
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        sidebar.setAttribute('aria-hidden','true');
+        menuToggle.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+        if(lastFocusedEl) lastFocusedEl.focus();
+      }
+
+      menuToggle.addEventListener('click', () => {
+        if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+      });
+
+      sidebarClose.addEventListener('click', closeSidebar);
+      overlay.addEventListener('click', closeSidebar);
+
+      // close when clicking nav links on narrow screens
+      sidebar.querySelectorAll('.sidebar-links a').forEach(a => {
+        a.addEventListener('click', (ev) => {
+          // set active style
+          sidebar.querySelectorAll('.sidebar-links a').forEach(x=>x.classList.remove('active'));
+          a.classList.add('active');
+          // close on small screens (viewport check)
+          if (window.innerWidth < 900) closeSidebar();
+        });
+      });
+
+      // ESC to close
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+      });
+
+      // IntersectionObserver to reveal elements (reduces motion respect)
+      if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(ent => {
+            if (ent.isIntersecting) ent.target.classList.add('is-visible');
+          });
+        }, {threshold:.12});
+        document.querySelectorAll('.card, .hero, .github-stat').forEach(el => {
+          el.classList.add('reveal');
+          obs.observe(el);
+        });
+      }
+
+      // smooth scroll fallback: native behavior is fine in modern browsers
+
+    })();
+  </script>
+</body>
+</html>
+
