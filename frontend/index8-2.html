@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free, open-source learning paths for DevOps and Backend development with Go">
+    <meta name="keywords" content="DevOps, Go, Backend, Programming, Open Source, Learning">
+    <title>DevCode Academy - Master DevOps & Backend Development</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            /* Darker Catppuccin Mocha Colors - Enhanced */
+            --base: #0d0d14;
+            --mantle: #11111b;
+            --crust: #181825;
+            --surface0: #1e1e2e;
+            --surface1: #313244;
+            --surface2: #45475a;
+            --overlay0: #585b70;
+            --overlay1: #6c7086;
+            --overlay2: #7f849c;
+            --subtext0: #9399b2;
+            --subtext1: #bac2de;
+            --text: #cdd6f4;
+            --lavender: #b4befe;
+            --blue: #89b4fa;
+            --sapphire: #74c7ec;
+            --sky: #89dceb;
+            --teal: #94e2d5;
+            --green: #a6e3a1;
+            --yellow: #f9e2af;
+            --peach: #fab387;
+            --maroon: #eba0ac;
+            --red: #f38ba8;
+            --mauve: #cba6f7;
+            --pink: #f5c2e7;
+            --flamingo: #f2cdcd;
+            --rosewater: #f5e0dc;
+            
+            /* Spacing and sizing variables */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-xxl: 6rem;
+            
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.5);
+            
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* Reset and base styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--base);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            text-rendering: optimizeSpeed;
+        }
+
+        /* Focus styles for accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--blue);
+            color: var(--base);
+            padding: 8px;
+            z-index: 10000;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: top var(--transition-normal);
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Layout utilities */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .container-wide {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .section {
+            padding: var(--space-xxl) 0;
+        }
+
+        .section-sm {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-lg {
+            padding: var(--space-xxl) 0;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: var(--space-sm);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: var(--space-sm);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--blue), var(--mauve));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--border-radius-lg);
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--sapphire));
+            color: var(--base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(137, 180, 250, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--surface1);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--surface1);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--green), var(--teal));
+            color: var(--base);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Top Navigation */
+        .navbar {
+            background-color: var(--crust);
+            padding: var(--space-sm) 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            border-bottom: 1px solid var(--surface0);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .logo::before {
+            content: '\f121';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.4rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-xs);
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-fast);
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--surface0);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-lg);
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+            padding: var(--space-xs) 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: width var(--transition-normal);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--base);
+            border-right: 1px solid var(--surface0);
+            transition: left var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            overflow-y: auto;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-xs);
+            border-radius: var(--border-radius);
+            z-index: 2001;
+        }
+
+        .sidebar-nav {
+            padding: var(--space-lg) 0 0 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 0;
+        }
+
+        .sidebar-section-title {
+            padding: var(--space-lg) var(--space-lg) var(--space-sm) var(--space-lg);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--overlay0);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            margin-bottom: var(--space-md);
+        }
+
+        .sidebar-links li {
+            margin: 0;
+        }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.875rem var(--space-lg);
+            color: var(--subtext1);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            border-left: 2px solid transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .sidebar-links a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--blue), transparent);
+            transition: width var(--transition-fast);
+        }
+
+        .sidebar-links a:hover,
+        .sidebar-links a:focus {
+            background-color: var(--surface1);
+            color: var(--text);
+            padding-left: 1.75rem;
+        }
+
+        .sidebar-links a:hover::before,
+        .sidebar-links a:focus::before {
+            width: 3px;
+        }
+
+        .sidebar-links a.active {
+            background-color: var(--surface1);
+            color: var(--blue);
+            border-left-color: var(--blue);
+            font-weight: 600;
+        }
+
+        .sidebar-links a.active::before {
+            width: 3px;
+        }
+
+        .sidebar-icon {
+            margin-right: var(--space-md);
+            font-size: 1rem;
+            width: 16px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Sidebar overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Content */
+        .content {
+            transition: margin-left var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content.shifted {
+            margin-left: 300px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-xxl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(137, 180, 250, 0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: var(--subtext1);
+            margin-bottom: var(--space-xl);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0 var(--space-lg) 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-xs);
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--overlay1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--surface0), var(--surface1));
+            padding: var(--space-xl) 0;
+            border-top: 1px solid var(--surface0);
+            border-bottom: 1px solid var(--surface0);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: var(--space-md);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--blue);
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--subtext1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .feature-card {
+            background-color: var(--crust);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-xl);
+            border: 1px solid var(--surface1);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+            box-shadow: var(--shadow-md);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--blue);
+        }
+
+        .feature-card h3 {
+            margin-bottom: var(--space-sm);
+            color: var(--blue);
+        }
+
+        /* Learning Paths Section */
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .path-card {
+            background: var(--crust);
+            border-radius: var(--border-radius-xl);
+            padding: var(--space-xl);
+            border: 1px solid var(--surface1);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--mauve));
+        }
+
+        .path-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .path-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .path-icon {
+            font-size: 2.5rem;
+            margin-right: var(--space-md);
+            color: var(--blue);
+        }
+
+        .path-description {
+            color: var(--subtext1);
+            margin-bottom: var(--space-lg);
+        }
+
+        .path-topics {
+            list-style: none;
+            margin-bottom: var(--space-lg);
+        }
+
+        .path-topics li {
+            padding: var(--space-xs) 0;
+            color: var(--subtext0);
+            border-bottom: 1px solid var(--surface1);
+        }
+
+        .path-topics li:last-child {
+            border-bottom: none;
+        }
+
+        /* Social Proof Section */
+        .social-proof {
+            background-color: var(--surface0);
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .testimonial {
+            background-color: var(--crust);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--surface1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--subtext1);
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--mauve));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--base);
+            font-weight: 600;
+            margin-right: var(--space-md);
+        }
+
+        .author-info h4 {
+            color: var(--text);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .author-info p {
+            color: var(--overlay1);
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        .github-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .github-stat {
+            display: flex;
+            align-items: center;
+            background-color: var(--crust);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--surface1);
+            text-decoration: none;
+            color: var(--text);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .github-stat:hover {
+            background-color: var(--surface0);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .github-icon {
+            margin-right: var(--space-xs);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--crust);
+            text-align: center;
+            border-top: 1px solid var(--surface1);
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--subtext1);
+            margin-bottom: var(--space-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--crust);
+            padding: var(--space-xl) 0 var(--space-lg) 0;
+            border-top: 1px solid var(--surface0);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-section h4 {
+            color: var(--blue);
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-section a {
+            color: var(--subtext1);
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--space-xs);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-section a:hover {
+            color: var(--blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--surface0);
+            padding-top: var(--space-lg);
+            color: var(--overlay1);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Performance optimizations */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .paths-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                gap: var(--space-lg);
+            }
+
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+
+            .github-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: var(--space-md);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .content.shifted {
+                margin-left: 0;
+            }
+
+            .section,
+            .section-lg {
+                padding: var(--space-xl) 0;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar" aria-hidden="true">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">×</button>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Main</div>
+                <ul class="sidebar-links">
+                    <li><a href="#home" class="active" aria-current="page"><i class="sidebar-icon fas fa-home" aria-hidden="true"></i>Home</a></li>
+                    <li><a href="#paths"><i class="sidebar-icon fas fa-route" aria-hidden="true"></i>Learning Paths</a></li>
+                    <li><a href="#about"><i class="sidebar-icon fas fa-info-circle" aria-hidden="true"></i>About</a></li>
+                    <li><a href="#community"><i class="sidebar-icon fas fa-users" aria-hidden="true"></i>Community</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">DevOps Track</div>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="sidebar-icon fab fa-docker" aria-hidden="true"></i>Docker Basics</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-dharmachakra" aria-hidden="true"></i>Kubernetes</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-cogs" aria-hidden="true"></i>CI/CD Pipelines</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-cloud" aria-hidden="true"></i>Cloud Platforms</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-chart-line" aria-hidden="true"></i>Monitoring</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Go Backend Track</div>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="sidebar-icon fab fa-golang" aria-hidden="true"></i>Go Fundamentals</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-globe" aria-hidden="true"></i>HTTP & APIs</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-database" aria-hidden="true"></i>Database Integration</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-sync-alt" aria-hidden="true"></i>Concurrency</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-cubes" aria-hidden="true"></i>Microservices</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Resources</div>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="sidebar-icon fas fa-book" aria-hidden="true"></i>Documentation</a></li>
+                    <li><a href="#"><i class="sidebar-icon fab fa-discord" aria-hidden="true"></i>Discord</a></li>
+                    <li><a href="#"><i class="sidebar-icon fab fa-github" aria-hidden="true"></i>GitHub</a></li>
+                    <li><a href="#"><i class="sidebar-icon fas fa-blog" aria-hidden="true"></i>Blog</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <div class="content" id="content">
+        <!-- Top Navigation -->
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="container nav-container">
+                <div style="display: flex; align-items: center; gap: var(--space-md);">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+                    <a href="#" class="logo">kernel</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#paths">Learning Paths</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-container fade-in">
+                <h1 class="text-gradient">Master Modern Development</h1>
+                <p>Free, open-source learning paths for DevOps and Backend development with Go. Build the skills that matter in today's tech landscape.</p>
+                <a href="#paths" class="btn btn-primary">Start Learning Free</a>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">100%</div>
+                        <div class="hero-stat-label">Free & Open Source</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">25+</div>
+                        <div class="hero-stat-label">Hands-on Projects</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">5000+</div>
+                        <div class="hero-stat-label">Active Learners</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container stats-container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">13</span>
+                        <span class="stat-label">Weeks to Mastery</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">75+</span>
+                        <span class="stat-label">Lessons</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">14</span>
+                        <span class="stat-label">Real Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Community Support</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section features" id="about">
+            <div class="container features-container">
+                <h2 class="text-center">Why Choose DevCode Academy?</h2>
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🚀</div>
+                        <h3>100% Free</h3>
+                        <p>All our content is completely free and open-source. No hidden fees, no premium tiers.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Industry-Focused</h3>
+                        <p>Learn skills that are in high demand: DevOps practices and Go backend development.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">📈</div>
+                        <h3>Progressive Learning</h3>
+                        <p>Structured paths that take you from beginner to advanced, step by step.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Paths Section -->
+        <section class="section paths" id="paths">
+            <div class="container paths-container">
+                <h2 class="text-center">Choose Your Learning Path</h2>
+                <div class="paths-grid">
+                    <!-- DevOps Path -->
+                    <div class="path-card fade-in">
+                        <div class="path-header">
+                            <div class="path-icon">⚙️</div>
+                            <h3>DevOps Engineering</h3>
+                        </div>
+                        <p class="path-description">Master the art of deployment, automation, and infrastructure management. Learn the tools and practices that keep modern applications running smoothly in production.</p>
+                        <ul class="path-topics">
+                            <li>🐳 Docker & Containerization (2 weeks)</li>
+                            <li>☸️ Kubernetes Orchestration (3 weeks)</li>
+                            <li>🔧 CI/CD Pipelines & GitOps (2 weeks)</li>
+                            <li>☁️ Cloud Platforms (AWS, GCP, Azure) (3 weeks)</li>
+                            <li>📊 Monitoring & Observability (2 weeks)</li>
+                            <li>🔒 Security & Best Practices (1 week)</li>
+                        </ul>
+                        <div style="margin-bottom: var(--space-md);">
+                            <span style="color: var(--green); font-weight: 600;">13 weeks • 40+ hands-on labs • 8 real projects</span>
+                        </div>
+                        <a href="#" class="btn btn-success">Start DevOps Journey</a>
+                    </div>
+
+                    <!-- Backend Go Path -->
+                    <div class="path-card fade-in">
+                        <div class="path-header">
+                            <div class="path-icon">🐹</div>
+                            <h3>Backend with Go</h3>
+                        </div>
+                        <p class="path-description">Build robust, scalable backend systems with Go. From fundamentals to advanced patterns, master the language that powers modern cloud infrastructure.</p>
+                        <ul class="path-topics">
+                            <li>🎯 Go Fundamentals & Syntax (2 weeks)</li>
+                            <li>🌐 HTTP Servers & REST APIs (2 weeks)</li>
+                            <li>🗄️ Database Integration & ORM (2 weeks)</li>
+                            <li>🔄 Concurrency & Goroutines (2 weeks)</li>
+                            <li>🏗️ Microservices Architecture (3 weeks)</li>
+                            <li>🧪 Testing & Performance (1 week)</li>
+                        </ul>
+                        <div style="margin-bottom: var(--space-md);">
+                            <span style="color: var(--green); font-weight: 600;">12 weeks • 35+ coding exercises • 6 full applications</span>
+                        </div>
+                        <a href="#" class="btn btn-success">Start Go Journey</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof Section -->
+        <section class="section social-proof" id="community">
+            <div class="container social-proof-container">
+                <h2 class="text-center">Powered by the Open Source Community</h2>
+                
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"I love that I can see exactly how each lesson was created and even contribute my own examples. True community-driven learning!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AK</div>
+                            <div class="author-info">
+                                <h4>Alex Kim</h4>
+                                <p>Open Source Contributor</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The transparency is incredible. Every resource is on GitHub, every decision is discussed openly. This is how education should be."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MR</div>
+                            <div class="author-info">
+                                <h4>Maria Rodriguez</h4>
+                                <p>DevOps Engineer & Maintainer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Started as a learner, now I'm a contributor. The community welcomes everyone and values every contribution, big or small."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JS</div>
+                            <div class="author-info">
+                                <h4>James Smith</h4>
+                                <p>Community Member & Contributor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="github-stats">
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-star"></i></span>
+                        <span>1,200+ Stars</span>
+                    </a>
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-code-branch"></i></span>
+                        <span>300+ Forks</span>
+                    </a>
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-code-merge"></i></span>
+                        <span>50+ Pull Requests</span>
+                    </a>
+                    <a href="#" class="github-stat">
+                        <span class="github-icon"><i class="fas fa-balance-scale"></i></span>
+                        <span>Open License</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta-section">
+            <div class="container cta-section-container">
+                <h2 class="text-gradient">Ready to Start Your Journey?</h2>
+                <p>Join thousands of developers who have transformed their careers with our free, open-source curriculum.</p>
+                <div class="cta-buttons">
+                    <a href="#paths" class="btn btn-primary">Browse Learning Paths</a>
+                    <a href="#community" class="btn btn-secondary">Join Community</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Open Source</h4>
+                        <a href="#">GitHub Repository</a>
+                        <a href="#">Contribute Guidelines</a>
+                        <a href="#">MIT License</a>
+                        <a href="#">Code of Conduct</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <a href="#">Discord Server</a>
+                        <a href="#">Contributors</a>
+                        <a href="#">Discussions</a>
+                        <a href="#">Issue Tracker</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <a href="#">Learning Paths</a>
+                        <a href="#">Documentation</a>
+                        <a href="#">Examples Repository</a>
+                        <a href="#">Blog</a>
+                    </div>
+                </div>
+                <div class="footer-bottom text-center">
+                    <p>&copy; 2025 kernel. Open Source Education • Licensed under MIT • Built by developers, for developers.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar functionality
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const content = document.getElementById('content');
+
+            // Toggle sidebar
+            function toggleSidebar() {
+                const isOpen = sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+                sidebar.setAttribute('aria-hidden', !isOpen);
+                
+                // Always push content on all screen sizes
+                content.classList.toggle('shifted');
+            }
+
+            // Close sidebar
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                sidebar.setAttribute('aria-hidden', 'true');
+                content.classList.remove('shifted');
+            }
+
+            // Event listeners
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarClose.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Close sidebar on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+
+            // Sidebar navigation active state
+            const sidebarLinks = document.querySelectorAll('.sidebar-links a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove active class from all links
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Close sidebar on mobile after click
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const target = document.querySelector(targetId);
+                    
+                    if (target) {
+                        // Close sidebar if open
+                        if (sidebar.classList.contains('open')) {
+                            closeSidebar();
+                        }
+                        
+                        // Scroll to target
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Update URL without jumping
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // Add fade-in animation on scroll with Intersection Observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target); // Stop observing after animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards and sections
+            document.querySelectorAll('.feature-card, .path-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Lazy loading for images (if added in the future)
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy-load');
+                            img.classList.add('loaded');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+
+            // Performance: Preload critical resources
+            function preloadCriticalResources() {
+                // This would preload critical images or other resources
+                // For now, we'll just ensure fonts are loaded properly
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(() => {
+                        document.body.classList.add('fonts-loaded');
+                    });
+                }
+            }
+
+            preloadCriticalResources();
+        });
+    </script>
+</body>
+</html>
