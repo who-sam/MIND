@@ -31,8 +31,7 @@ function NoteCard({ id, title, date, status, color, starred }) {
   };
 
   const handleCardClick = () => {
-    // TODO: Navigate to edit/view page
-    console.log('Note clicked:', id);
+    navigate(`/edit-note/${id}`);
   };
 
   const formatDate = (dateString) => {
@@ -61,4 +60,3 @@ function NoteCard({ id, title, date, status, color, starred }) {
 }
 
 export default NoteCard;
-

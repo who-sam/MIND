@@ -63,6 +63,11 @@ export const notesAPI = {
     return data.data;
   },
 
+  getById: async (id) => {
+    const data = await apiRequest(`/notes/${id}`);
+    return data.data;
+  },
+
   create: async (note) => {
     const data = await apiRequest('/notes', {
       method: 'POST',
@@ -92,4 +97,3 @@ export const notesAPI = {
     return data.data;
   },
 };
-
