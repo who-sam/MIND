@@ -2,15 +2,12 @@
 
 # Final Project Proposal: Multi-Pod Note Management Application
 
----
-
 ## Project Overview
 
 The **Multi-Pod Note Management Application** is a fully containerized full-stack web platform for creating, editing, and managing notes. It integrates a **React frontend**, **Flask backend**, and **MariaDB database**, deployed on a **multi-node Kubernetes cluster** provisioned via **kubeadm** and automated with **Ansible**. This project demonstrates complete DevOps lifecycle practices—from infrastructure provisioning and CI/CD automation to monitoring, alerting, and scalability.
 
 The system simulates a **production-grade DevOps environment**, ensuring resilience, observability, and maintainability while leveraging modern cloud-native technologies.
 
----
 
 ## Team Members & Roles
 
@@ -22,14 +19,12 @@ The system simulates a **production-grade DevOps environment**, ensuring resilie
 | **Ahmed Elgammal**    | Cloud Infrastructure Engineer                    |
 | **Adham Basem**         | Monitoring & Reliability Engineer                |
 
----
 
 ## Team Leadership
 
 **Team Leader:** _Hossam Mohamed Samy Abdelaziz Rashed_  
 **Responsibilities:** Oversees project execution, coordinates between development and operations teams, designs Kubernetes architecture, manages Linux servers, and ensures smooth integration between application and infrastructure layers.
 
----
 
 ## Objectives
 
@@ -45,8 +40,6 @@ The system simulates a **production-grade DevOps environment**, ensuring resilie
     
 - Validate system reliability and scalability under realistic workloads.
     
-
----
 
 ## Tools & Technologies
 
@@ -65,9 +58,6 @@ The system simulates a **production-grade DevOps environment**, ensuring resilie
 - **Version Control & Registry:** GitHub, Docker Hub
     
 
----
-
----
 
 ## Key Performance Indicators (KPIs)
 
