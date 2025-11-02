@@ -89,26 +89,25 @@ export const statusMap = {
   "note": {
     text: "Note",
     iconClass: "far fa-sticky-note",
-    bg: "bg-gray-800",
-    color: "text-gray-300"
+    bg: "bg-gray-700/80",
+    color: "text-gray-200"
   },
   "todo:done": {
     text: "Done",
     iconClass: "fas fa-check-circle",
-    bg: "bg-green-700",
-    color: "text-green-300"
+    bg: "bg-green-700/80",
+    color: "text-green-200"
   },
   "todo:inprogress": {
     text: "In Progress",
-    iconClass: "fas fa-spinner fa-spin",
-    bg: "bg-yellow-700",
+    iconClass: "fas fa-spinner",
+    bg: "bg-yellow-700/80",
     color: "text-yellow-200"
   },
   "todo:nostatus": {
     text: "No Status",
     iconClass: "far fa-circle",
-    bg: "bg-gray-700",
-    color: "text-gray-400"
+    bg: "bg-gray-600/80",
+    color: "text-gray-300"
   }
 };
-
