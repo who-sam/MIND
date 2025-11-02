@@ -2,7 +2,9 @@ body {
   margin: 0;
   padding: 0;
   background: #0B101B;
-  font-family: Inter, Poppins, Lato, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -11,34 +13,43 @@ body {
 
 /* Login page styles */
 .glass-bg {
-  background: rgba(22, 23, 30, 0.96);
-  backdrop-filter: blur(6px) saturate(120%);
+  background: rgba(22, 23, 30, 0.98);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
 }
 
 .shadow-xlarge {
-  box-shadow: 0 18px 80px 0 #000000a0;
+  box-shadow: 0 20px 90px 0 rgba(0, 0, 0, 0.7);
 }
 
 .input-glass {
-  background: rgba(28, 31, 37, 0.97);
+  background: rgba(28, 31, 37, 0.98);
+  transition: all 0.2s ease;
 }
 
 .input-glass:focus {
-  background: rgba(35, 41, 54, 0.99);
+  background: rgba(35, 41, 54, 1);
+  box-shadow: 0 0 0 3px rgba(59, 154, 225, 0.1);
 }
 
 .login-btn, .google-btn {
-  transition: box-shadow 0.16s, background 0.13s;
+  transition: all 0.2s ease;
 }
 
 .login-btn:hover, .google-btn:hover {
   background: #282c38;
-  box-shadow: 0 7px 32px #22243b33;
+  box-shadow: 0 8px 24px rgba(34, 36, 59, 0.4);
+  transform: translateY(-1px);
+}
+
+.tab-btn {
+  transition: all 0.2s ease;
 }
 
 .tab-btn.active {
   background: #181B20;
   color: #f8f8f8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .tab-btn.inactive {
@@ -46,14 +57,18 @@ body {
   color: #888;
 }
 
+.tab-btn:hover {
+  color: #f8f8f8;
+}
+
 .anim-fadein {
-  animation: fadein 0.9s cubic-bezier(0.42, 0, 0.58, 1);
+  animation: fadein 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes fadein {
   from {
     opacity: 0;
-    transform: translateY(7px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -68,46 +83,81 @@ body {
 }
 
 .note-card {
-  transition: transform 0.08s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .note-card:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 40px 0 #00000044;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
+.note-card:active {
+  transform: translateY(-2px);
+}
+
+/* Sidebar styles */
 .sidebar-glass {
-  backdrop-filter: blur(17px) saturate(120%);
-  -webkit-backdrop-filter: blur(17px) saturate(120%);
-  background-color: rgba(36, 39, 45, 0.95);
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  background-color: rgba(36, 39, 45, 0.96);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-icon {
-  transition: background 0.14s, color 0.14s, box-shadow 0.14s;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(59, 154, 225, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.sidebar-icon:hover::before {
+  width: 100%;
+  height: 100%;
 }
 
 .sidebar-icon.active {
   background: #23262f;
   color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-icon.inactive {
   color: #9297A5;
 }
 
+.sidebar-icon:hover {
+  background: #2a2d35;
+  transform: scale(1.05);
+}
+
 .sidebar-bottom-btn {
-  box-shadow: 0 2px 12px 0 #23262f44;
-  transition: background 0.13s;
+  box-shadow: 0 3px 12px rgba(35, 38, 47, 0.5);
+  transition: all 0.2s ease;
 }
 
 .sidebar-bottom-btn:hover {
   background: #1a1d23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(35, 38, 47, 0.6);
 }
 
 .sidebar-separator {
   width: 40%;
   height: 1.5px;
-  background: #383C4360;
+  background: linear-gradient(90deg, transparent, #383C43, transparent);
   margin: 0.8rem auto;
   border-radius: 10px;
 }
@@ -117,11 +167,79 @@ body {
   letter-spacing: 3.5px;
   font-size: 11px;
   color: #9297A5;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
+/* Button enhancements */
+button {
+  cursor: pointer;
+  user-select: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Form enhancements */
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #181B20;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #383C43;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4e58;
+}
+
+/* Responsive adjustments */
 @media (max-width: 1024px) {
   .rounded-illustration {
     border-radius: 2rem;
   }
 }
 
+/* Loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Status badge enhancements */
+.status-badge {
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+/* Card title text enhancements */
+.note-title {
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Enhanced focus styles */
+*:focus-visible {
+  outline: 2px solid #3B9AE1;
+  outline-offset: 2px;
+}

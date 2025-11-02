@@ -60,3 +60,4 @@ function NoteCard({ id, title, date, status, color, starred }) {
 }
 
 export default NoteCard;
+
