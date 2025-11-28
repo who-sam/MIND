@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://backend-service:8080/api';
 
 // Helper function to make API requests
 async function apiRequest(endpoint, options = {}) {
