@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://mind-production-00a6.up.railway.app/api';
 
 // Helper function to make API requests
 async function apiRequest(endpoint, options = {}) {

@@ -28,7 +28,23 @@ func main() {
 
 	// CORS middleware
 	r.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		origin := c.Request.Header.Get("Origin")
+
+		// Allow localhost for development
+		if strings.Contains(origin, "localhost") || strings.Contains(origin, "127.0.0.1") {
+			c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+		}
+
+		// Allow Netlify domains (*.netlify.app)
+		if strings.HasSuffix(origin, ".netlify.app") {
+			c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+		}
+
+		// Allow Railway domains (*.railway.app)
+		if strings.HasSuffix(origin, ".railway.app") {
+			c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+		}
+
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
@@ -40,7 +56,6 @@ func main() {
 
 		c.Next()
 	})
-
 	// Health check
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok", "message": "Notes API is running"})
