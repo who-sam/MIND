@@ -2,10 +2,11 @@ package main
 
 import (
 	"log"
+	"os"
+	"strings"
 	"notes-app/internal/db"
 	"notes-app/internal/handlers"
 	"notes-app/internal/models"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
